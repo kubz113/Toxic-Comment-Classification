@@ -6,6 +6,7 @@ Created on Fri Jan  5 12:16:59 2018
 """
 
 import csv
+import pandas as pd
 
 
 testData = []
@@ -15,67 +16,65 @@ obsceneWords = set()
 threatWords = set()
 insultWords = set()
 identityHateWords = set()
- 
-with open('practiceData.csv') as csvDataFile:
-    csvReader = csv.reader(csvDataFile)
-    for row in csvReader:
-        copyRow = row[0:8]
-        testData.append(copyRow)
-        if row[2] == '1':
-            for i in row[1].split():
-                toxicWords.add(i)
-        if row[3] == '1':
-            for i in row[1].split():
-                severeToxicWords.add(i)
-        if row[4] == '1':
-            for i in row[1].split():
-                obsceneWords.add(i)        
-        if row[5] == '1':
-            for i in row[1].split():
-                threatWords.add(i)                
-        if row[6] == '1':
-            for i in row[1].split():
-                insultWords.add(i)
-        if row[7] == '1':
-            for i in row[1].split():
-                identityHateWords.add(i)
-                
 
-toxicFile = open("toxicWords.csv",'w')
+df = pd.read_csv("practiceData.csv")
+
+for index, row in df.iterrows():
+    if row['toxic'] == 1:
+        for i in row['comment_text'].split():
+            toxicWords.add(i)
+    if row['severe_toxic'] == 1:
+        for i in row['comment_text'].split():
+            severeToxicWords.add(i)
+    if row['obscene'] == 1:
+        for i in row['comment_text'].split():
+            obsceneWords.add(i)        
+    if row['threat'] == 1:
+        for i in row['comment_text'].split():
+            threatWords.add(i)                
+    if row['insult'] == 1:
+        for i in row['comment_text'].split():
+            insultWords.add(i)
+    if row['identity_hate'] == 1:
+        for i in row['comment_text'].split():
+            identityHateWords.add(i)
+            
+
+toxicFile = open("toxicWords.csv",'w', encoding = 'utf-8', newline='')
 cw = csv.writer(toxicFile)
 for i in toxicWords: 
     cw.writerow([i])  
 toxicFile.close()
 
-severeToxicFile = open("severeToxicWords.csv",'w')
+severeToxicFile = open("severeToxicWords.csv",'w', encoding = 'utf-8', newline='')
 cw = csv.writer(severeToxicFile)
 for i in severeToxicWords: 
     cw.writerow([i])  
 severeToxicFile.close()
 
 
-obsceneFile = open("obsceneWords.csv",'w')
+obsceneFile = open("obsceneWords.csv",'w', encoding = 'utf-8', newline='')
 cw = csv.writer(obsceneFile)
 for i in obsceneWords: 
     cw.writerow([i])  
 obsceneFile.close()
 
 
-threatFile = open("threatWords.csv",'w')
+threatFile = open("threatWords.csv",'w', encoding = 'utf-8', newline='')
 cw = csv.writer(threatFile)
 for i in threatWords: 
     cw.writerow([i])  
 threatFile.close()
 
 
-insultFile = open("insultWords.csv",'w')
+insultFile = open("insultWords.csv",'w', encoding = 'utf-8', newline='')
 cw = csv.writer(insultFile)
 for i in insultWords: 
     cw.writerow([i])  
 insultFile.close()
 
 
-identityHateFile = open("identityHateWords.csv",'w')
+identityHateFile = open("identityHateWords.csv",'w', encoding = 'utf-8', newline='')
 cw = csv.writer(identityHateFile)
 for i in identityHateWords: 
     cw.writerow([i])  
