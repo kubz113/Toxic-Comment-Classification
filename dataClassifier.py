@@ -58,22 +58,30 @@ for index, row in testData.iterrows():
                 obscene+=1
             if i in identityHateWords:
                 identityHate+=1
-    insultPer = insult/length
-    toxicPer = toxic/length
-    severeToxicPer = severeToxic/length
-    threatPer = threat/length
-    obscenePer = obscene/length
-    identityPer = identityHate/length
-
-    totalPer = insultPer+toxicPer+severeToxicPer+threatPer+obscenePer+identityPer
-    if totalPer == 0.0:
-        totalPer = 1.0
-    toxicPercents.append(toxicPer/totalPer)
-    insultPercents.append(insultPer/totalPer)
-    severeToxicPercents.append(severeToxicPer/totalPer)
-    threatPercents.append(threatPer/totalPer)
-    obscenePercents.append(obscenePer/totalPer)
-    identityHatePercents.append(identityPer/totalPer)
+    if length!=0.0:
+        insultPer = insult/length
+        toxicPer = toxic/length
+        severeToxicPer = severeToxic/length
+        threatPer = threat/length
+        obscenePer = obscene/length
+        identityPer = identityHate/length
+    
+        totalPer = insultPer+toxicPer+severeToxicPer+threatPer+obscenePer+identityPer
+        if totalPer == 0.0:
+            totalPer = 1.0
+        toxicPercents.append(toxicPer/totalPer)
+        insultPercents.append(insultPer/totalPer)
+        severeToxicPercents.append(severeToxicPer/totalPer)
+        threatPercents.append(threatPer/totalPer)
+        obscenePercents.append(obscenePer/totalPer)
+        identityHatePercents.append(identityPer/totalPer)
+    else:
+        toxicPercents.append(0.0)
+        insultPercents.append(0.0)
+        severeToxicPercents.append(0.0)
+        threatPercents.append(0.0)
+        obscenePercents.append(0.0)
+        identityHatePercents.append(0.0)
 
 testClassifier = [('id', testData['id'].tolist()),
                   ('toxic', toxicPercents),
