@@ -1,7 +1,7 @@
 # Toxic-Comment-Classification
 Individual Submission for Toxic Comment Classification Competition (https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge)
 
-Iteration 1
+## Iteration 1
 
 To start off the project, I wanted to create a working application that produced a correctly formatted csv file for submission. I did not care for accuracy at this point, just an application that took in training and test data and produced an output. I would improve the accruacy in following iterations.
 
