@@ -9,6 +9,19 @@ import csv
 import pandas as pd
 
 
+# things we need for NLP
+import nltk
+from nltk.stem.lancaster import LancasterStemmer
+from nltk.corpus import stopwords
+stemmer = LancasterStemmer()
+
+# things we need for Tensorflow
+import numpy as np
+import tflearn
+import tensorflow as tf
+import random
+
+stopWords = set(stopwords.words('english'))
 testData = []
 toxicWords = set()
 severeToxicWords = set()
@@ -17,30 +30,43 @@ threatWords = set()
 insultWords = set()
 identityHateWords = set()
 
+categories = ['toxic', 'severeToxic', 'obscene', 'threat', 'insult', 'identityHate']
+
+
+
 df = pd.read_csv("train.csv")
 
 for index, row in df.iterrows():
     if row['toxic'] == 1:
         for i in row['comment_text'].split():
-            toxicWords.add(i)
+            if not (i in stopWords):
+                j = nltk.word_tokenize(i)
+                toxicWords.add(j[0])
     if row['severe_toxic'] == 1:
         for i in row['comment_text'].split():
-            severeToxicWords.add(i)
+            if not (i in stopWords):
+                j = nltk.word_tokenize(i)
+                severeToxicWords.add(j[0])
     if row['obscene'] == 1:
         for i in row['comment_text'].split():
-            obsceneWords.add(i)        
+            if not (i in stopWords):
+                j = nltk.word_tokenize(i)
+                obsceneWords.add(j[0])        
     if row['threat'] == 1:
         for i in row['comment_text'].split():
-            threatWords.add(i)                
+            if not (i in stopWords):
+                j = nltk.word_tokenize(i)
+                threatWords.add(j[0])                
     if row['insult'] == 1:
         for i in row['comment_text'].split():
-            insultWords.add(i)
+            if not (i in stopWords):
+                j = nltk.word_tokenize(i)
+                insultWords.add(j[0])
     if row['identity_hate'] == 1:
         for i in row['comment_text'].split():
-            identityHateWords.add(i)
-
-
-
+            if not (i in stopWords):
+                j = nltk.word_tokenize(i)
+                identityHateWords.add(j[0])
 
 
 

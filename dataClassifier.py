@@ -1,5 +1,5 @@
-import csv
 import pandas as pd
+import nltk
 
 
 
@@ -30,7 +30,7 @@ insultPercents = []
 obscenePercents = []
 threatPercents = []
 identityHatePercents = []
-
+testData['id'].apply(str)
 for index, row in testData.iterrows():
     if index%100 == 0:
         print(index)
@@ -44,7 +44,7 @@ for index, row in testData.iterrows():
     identityHate = 0.0
     length = 0.0
     if isinstance(comment, str):
-        for i in comment.split():
+        for i in nltk.word_tokenize(comment):
             length+=1
             if i in insultWords:
                 insult+=1
